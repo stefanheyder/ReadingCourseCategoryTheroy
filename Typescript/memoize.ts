@@ -1,7 +1,5 @@
 const memoize = (fn) => {
-    let memoized = {
-
-    };
+    let memoized = {};
     return (x) => {
         if (memoized[x]) {
             return memoized[x];
