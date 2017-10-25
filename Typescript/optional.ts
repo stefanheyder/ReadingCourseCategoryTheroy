@@ -1,3 +1,10 @@
+import {assert} from "./testing"
+
+interface Valid<A> {
+    value: A;
+    valid: boolean;
+}
+
 interface Optional<A> {
     value?: A;
     valid: boolean;
@@ -29,9 +36,9 @@ const safe_root = (x) => {
 
 export function composeOptional<A,B,C>(f: (x:A) => Optional<B>, g: (y:B) => Optional<C>) {
     return (x: A) => {
-        const first = f(x);
-        if (first.valid) {
-            return g(first.value);
+        const result = f(x);
+        if (result.valid) {
+            return g(result.value);
         }
         return {
             valid: false
@@ -50,3 +57,5 @@ console.log(safe_inverse_root(9))
 
 console.log(safe_inverse_root(-1))
 console.log(safe_inverse_root(0))
+
+assert((safe_root(9) as any).value, 3)
